@@ -1,0 +1,26 @@
+[{
+    "id": 1,
+    "username": "Barney",
+    "avatar": "/images/barney.png",
+    "date_joined": "2019/01/21"
+  }, {
+    "id": 2,
+    "username": "Homer",
+    "avatar": "/images/homer.jpg",
+    "date_joined": "2021/11/01"
+  }, {
+    "id": 3,
+    "username": "Jeff",
+    "avatar": "/images/jeff.png",
+    "date_joined": "2021/09/24"
+  }, {
+    "id": 4,
+    "username": "Mr. Burns",
+    "avatar": "/images/mrburns.jpg",
+    "date_joined": "2021/06/15"
+  }, {
+    "id": 5,
+    "username": "Nelson",
+    "avatar": "/images/nelson.png",
+    "date_joined": "2021/06/15"
+  }]
