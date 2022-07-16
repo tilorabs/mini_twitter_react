@@ -1,55 +1,48 @@
 import React, { useState, useEffect } from "react";
 
-function Messages({mode, uid}) {
+function Messages({uid}) {
     const [messages, setMessages] = useState([]);
-    const [userid, setUserId] = useState(uid);
+    let userid = parseInt(uid);
 
     useEffect(() => {
         fetchMessages();
-        setUserId(uid);
     }, []);
-
-    useEffect(() => {
-        setMessages(sortJson(messages, mode));
-    }, [userid]);
-
-    /* const fetchMessages = async () => {
-        //const url = "http://server?";
-        const url = "messages.json";
-         fetch(url, { headers : { 'Content-Type': 'application/json', 'Accept': 'application/json' } })
-           .then((response) => response.json())
-           .then((result) => setMessages(result))
-           .catch((err) => console.log(err.message));
-    }; */
 
     const fetchMessages = async () => {
         const url = "messages.json";
         const response = await fetch(url, { headers : { 'Content-Type': 'application/json', 'Accept': 'application/json' } });
         const json = await response.json();
-        setMessages(() => sortJson(json, mode));
+        setMessages(() => sortMessages(json));
     }
 
-    const sortJson = (json, mode) => {
-        let newJson;
-        if(mode === "all") {
-            newJson = [...json];
-            newJson.sort(date_sort);
-        } else if(mode === "byUser") {
-            newJson = json.filter(msg => {
-                return msg.posted_by == userid;
-            });
-        }
-        return newJson;
+    const sortMessages = (json) => {
+        let newMessages = [...json];
+        newMessages.sort(date_sort);
+        return newMessages;
     };
 
     const li_messages = messages.map((message) => {
+        const mdate = new Date(message.date_posted).toLocaleDateString();
         return (
             <li key={message.id}>
-                <p className="date">{message.date_posted} from {message.posted_by}</p>
+                <p className="date">{mdate} from {message.posted_by}</p>
                 <p className="content">{message.text}</p>
                 <img src={message.image} />
             </li>
         );
+    });
+
+    const li_usermessages = messages.map((message) => {
+        const mdate = new Date(message.date_posted).toLocaleDateString();
+        if(userid == message.posted_by) {
+            return (
+                <li key={message.id}>
+                    <p className="date">{mdate} from {message.posted_by}</p>
+                    <p className="content">{message.text}</p>
+                    <img src={message.image} />
+                </li>
+            );
+        }
     });
 
     function date_sort(a, b) {
@@ -57,7 +50,7 @@ function Messages({mode, uid}) {
     }
 
     return(
-        <ul className="messages">{messages.length > 0 && li_messages}</ul>
+        <ul className="messages">{messages.length > 0 && userid > 0?li_usermessages:li_messages}</ul>
     )
 }
 

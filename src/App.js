@@ -21,9 +21,9 @@ function Layout(props) {
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout msgmode="all" usermode="all"/>} />
-      <Route exact path="/users/:id" element={<Layout msgmode="byUser" usermode="byUser"/>} />
-      <Route exact path="/messages/:id" element={<Layout msgmode="byMessage" usermode="byMessage"/>} />
+      <Route path="/" element={<Layout />} />
+      <Route exact path="/users/:id" element={<Layout />} />
+      <Route exact path="/messages/:id" element={<Layout />} />
     </Routes>
   );
 }
