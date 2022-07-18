@@ -9,9 +9,10 @@ function Users({uid}) {
         fetchUsers();
     }, []);
     
+    //for img from backend: <img src={`https://hackathon-backend-007.herokuapp.com/user-images/${user.avatar}`} />
     const fetchUsers = async () => {
-        const url = "https://hackathon-backend-007.herokuapp.com/users";
-        //const url = "users.json";
+        //const url = "https://hackathon-backend-007.herokuapp.com/users";
+        const url = "users.json";
           fetch(url, { headers : { 'Content-Type': 'application/json', 'Accept': 'application/json' } })
             .then((response) => response.json())
             .then((result) => setUsers(result))
@@ -25,7 +26,7 @@ function Users({uid}) {
             return (
                 <li className="li_extended" key={user.id}>
                     <NavLink className="link" to={user_to}>
-                        <img className="big" src={`https://hackathon-backend-007.herokuapp.com/user-images/${user.avatar}`} />
+                        <img className="big" src={user.avatar} alt={user.username} />
                         <span>{user.username}</span>
                     </NavLink>
                     <p>Joining date: {jdate}</p>
@@ -36,7 +37,7 @@ function Users({uid}) {
         return (
             <li key={user.id}>
                 <NavLink className="link" to={user_to}>
-                    <img src={`https://hackathon-backend-007.herokuapp.com/user-images/${user.avatar}`} />
+                    <img src={user.avatar} alt={user.username} />
                     <span>{user.username}</span>
                 </NavLink>
             </li>

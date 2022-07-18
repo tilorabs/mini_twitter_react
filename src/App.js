@@ -4,14 +4,14 @@ import Messages from "./Messages";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function Layout(props) {
+function Layout() {
   const {id} = useParams();
   return (
     <div className="App">
       <Header />
       <main>
-        <Users mode={props.usermode} uid={id}/>
-        <Messages mode={props.msgmode} uid={id}/>
+        <Users uid={id}/>
+        <Messages uid={id}/>
       </main>
       <Footer />
     </div>

@@ -23,26 +23,16 @@ function Messages({uid}) {
 
     const li_messages = messages.map((message) => {
         const mdate = new Date(message.date_posted).toLocaleDateString();
+        let msguserid = parseInt(message.posted_by);
+        if(userid > 0 && userid !== msguserid)
+            return;
         return (
             <li key={message.id}>
                 <p className="date">{mdate} from {message.posted_by}</p>
                 <p className="content">{message.text}</p>
-                <img src={message.image} />
+                <img src={message.image} alt={mdate} />
             </li>
         );
-    });
-
-    const li_usermessages = messages.map((message) => {
-        const mdate = new Date(message.date_posted).toLocaleDateString();
-        if(userid == message.posted_by) {
-            return (
-                <li key={message.id}>
-                    <p className="date">{mdate} from {message.posted_by}</p>
-                    <p className="content">{message.text}</p>
-                    <img src={message.image} />
-                </li>
-            );
-        }
     });
 
     function date_sort(a, b) {
@@ -50,7 +40,7 @@ function Messages({uid}) {
     }
 
     return(
-        <ul className="messages">{messages.length > 0 && userid > 0?li_usermessages:li_messages}</ul>
+        <ul className="messages">{messages.length > 0 && li_messages}</ul>
     )
 }
 
